@@ -190,7 +190,7 @@ function Card({
           isChecked ? "z-[2]" : ""
         }`}
       >
-        <div className="flex gap-[7px] align-middle">
+        <div className="flex gap-[7px] items-center">
           <ThreeDots classname="w-[12px]" />
           <h4 className="font-inter text-grey1 text-sm font-semibold">
             Function: {data.id}
@@ -217,16 +217,37 @@ function Card({
           >
             Next function
           </label>
-          <input
-            id={`input-${data.id}`}
-            disabled={data.nextFunction.disabled}
-            value={
-              data.nextFunction.value
-                ? `Function: ${data.nextFunction.value}`
-                : "-"
-            }
-            className=" focus-within:outline-none w-full  border border-grey2 rounded-[8px] text-xs font-medium text-black1 font-inter py-[8px] px-[11px]"
-          />
+          <div className="w-full relative">
+            <input
+              id={`input-${data.id}`}
+              disabled={data.nextFunction.disabled}
+              value={
+                data.nextFunction.value
+                  ? `Function: ${data.nextFunction.value}`
+                  : "-"
+              }
+              className="focus-within:outline-none w-full  border border-grey2 rounded-[8px] text-xs font-medium text-black1 font-inter py-[8px] px-[11px] text--black1 opacity-[0.5]"
+            />
+            <div className="absolute right-[10px] top-[50%] transform -translate-y-1/2">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g opacity="0.3">
+                  <path
+                    d="M3.5 5.25L7 8.75L10.5 5.25"
+                    stroke="#2F384C"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </g>
+              </svg>
+            </div>
+          </div>
         </div>
         <div className="mt-[45px] flex justify-between items-center">
           <div className="flex items-center gap-[4px]">
