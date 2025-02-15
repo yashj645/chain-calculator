@@ -1,9 +1,10 @@
 "use client";
-import { functionProp } from "@/app/page";
-import BlueDot from "@/assets/blue-dot.inline.svg";
-import ThreeDots from "@/assets/three-dots.inline.svg";
+
 import { useCallback, useEffect, useLayoutEffect } from "react";
+import { functionProp } from "@/app/page";
+import BlueDot from "../BlueDot";
 import "./style.scss";
+import ThreeDots from "../ThreeDots";
 
 type CardProps = {
   data: functionProp;
@@ -106,8 +107,8 @@ function Card({
         const y2 = box2Rect.top + Math.ceil(box2Rect.height / 2);
 
         // Generate a smooth cubic Bezier curve path for the connection
-        const pathData = `M ${x1},${y1} C ${(x1 || 0) + 100},${y1} ${
-          (x2 || 0) - 100
+        const pathData = `M ${x1},${y1} C ${x1 + 100},${y1} ${
+          x2 - 100
         },${y2} ${x2},${y2}`;
 
         // Set the "d" attribute of the SVG path to render the curved line
@@ -152,7 +153,7 @@ function Card({
               onChange={handleInputChange}
             />
             <div className="w-[44px] border-l-[1px] border-l-lightOrange flex items-center justify-center">
-              <BlueDot id="input-box" className="w-[15px] h-[15px]" />
+              <BlueDot id="input-box" classname="w-[15px] h-[15px]" />
             </div>
           </div>
         </div>
@@ -163,7 +164,7 @@ function Card({
         }`}
       >
         <div className="flex gap-[7px] align-middle">
-          <ThreeDots className="w-[12px]" />
+          <ThreeDots classname="w-[12px]" />
           <h4 className="font-inter text-grey1 text-sm font-semibold">
             Function: {data.id}
           </h4>
@@ -202,10 +203,7 @@ function Card({
         </div>
         <div className="mt-[45px] flex justify-between items-center">
           <div className="flex items-center gap-[4px]">
-            <BlueDot
-              id={`input-dot-${data.id}`}
-              className="w-[15px] h-[15px]"
-            />
+            <BlueDot id={`input-dot-${data.id}`} classname="w-[15px] h-[15px]" />
             <p className="text-grey3 text-[10px] font-medium font-inter">
               input
             </p>
@@ -214,10 +212,7 @@ function Card({
             <p className="text-grey3 text-[10px] font-medium font-inter">
               output
             </p>
-            <BlueDot
-              id={`output-dot-${data.id}`}
-              className="w-[15px] h-[15px]"
-            />
+            <BlueDot id={`output-dot-${data.id}`} classname="w-[15px] h-[15px]" />
           </div>
         </div>
       </div>
@@ -228,7 +223,7 @@ function Card({
           </div>
           <div className="w-max border-[2px] border-borderGreen flex rounded-[15px] bg-white">
             <div className="w-[44px] border-r-[1px] border-r-lightGreen flex items-center justify-center">
-              <BlueDot id="output-box" className="w-[15px] h-[15px]" />
+              <BlueDot id="output-box" classname="w-[15px] h-[15px]" />
             </div>
             <input
               className="w-[100px] py-[14px] px-[20px] rounded-[15px] focus-within:outline-none text-lg text-black font-bold"

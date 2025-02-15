@@ -1,7 +1,7 @@
 "use client";
 
-import Card from "@/components/Card";
 import { useEffect, useState } from "react";
+import Card from "@/components/Card";
 
 export interface functionProp {
   id: string;
