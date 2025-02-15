@@ -1,0 +1,17 @@
+@keyframes draw-path {
+  from {
+      stroke-dashoffset: 2000; /* Fully hidden */
+  }
+  to {
+      stroke-dashoffset: 0; /* Fully visible */
+  }
+}
+
+@keyframes draw-line {
+  from {
+      stroke-dashoffset: 100; /* Fully hidden */
+  }
+  to {
+      stroke-dashoffset: 0; /* Fully visible */
+  }
+}
