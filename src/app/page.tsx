@@ -20,7 +20,7 @@ export default function Home() {
   const pattern = /^([0-9+\-*/^x]*)$/;
   const [input, setInput] = useState("0");
   const [output, setOutput] = useState("");
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(true);
   const [functions, setFunctions] = useState<functionProp[]>([
     {
       id: "1",
