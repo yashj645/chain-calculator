@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { functionProp } from "@/app/page";
 import BlueDot from "../BlueDot";
 import "./style.scss";
@@ -65,6 +65,16 @@ function Card({
             pathOutputBox.setAttribute("x2", yc?.toString() || "");
             pathOutputBox.setAttribute("y2", yd?.toString() || "");
           }
+
+          if (pathOutputBox) {
+            // Reset animation
+            pathOutputBox.style.animation = "";
+            pathOutputBox.style.animationDelay = "0";
+
+            setTimeout(() => {
+              pathOutputBox.style.animation = "draw-line 1s linear forwards";
+            }, 100);
+          }
         }
         return; // Exit function since there is no next function
       }
@@ -93,6 +103,16 @@ function Card({
             pathInputBox.setAttribute("x2", ya?.toString() || "");
             pathInputBox.setAttribute("y2", yb?.toString() || "");
           }
+          
+          if (pathInputBox) {
+            // Reset animation
+            pathInputBox.style.animation = "";
+            pathInputBox.style.animationDelay = "0";
+
+            setTimeout(() => {
+              pathInputBox.style.animation = "draw-line 1s linear forwards";
+            }, 100);
+          }
         }
       }
 
@@ -113,10 +133,23 @@ function Card({
 
         // Set the "d" attribute of the SVG path to render the curved line
         path?.setAttribute("d", pathData);
+        if (path) {
+          // Reset animation
+          path.style.animation = "";
+          path.style.animationDelay = "0";
+
+          setTimeout(() => {
+            path.style.animation = "draw-path 3s linear forwards";
+          }, 100);
+        }
       }
     },
     [data]
   );
+
+  useEffect(() => {
+    updateConnectionCallback();
+  }, [isChecked]);
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
@@ -131,12 +164,6 @@ function Card({
     return () => {
       window.removeEventListener("resize", updateConnectionCallback);
     };
-  }, [updateConnectionCallback]);
-
-  useLayoutEffect(() => {
-    setTimeout(() => {
-      updateConnectionCallback();
-    }, 300);
   }, [updateConnectionCallback]);
 
   return (
@@ -203,7 +230,10 @@ function Card({
         </div>
         <div className="mt-[45px] flex justify-between items-center">
           <div className="flex items-center gap-[4px]">
-            <BlueDot id={`input-dot-${data.id}`} classname="w-[15px] h-[15px]" />
+            <BlueDot
+              id={`input-dot-${data.id}`}
+              classname="w-[15px] h-[15px]"
+            />
             <p className="text-grey3 text-[10px] font-medium font-inter">
               input
             </p>
@@ -212,7 +242,10 @@ function Card({
             <p className="text-grey3 text-[10px] font-medium font-inter">
               output
             </p>
-            <BlueDot id={`output-dot-${data.id}`} classname="w-[15px] h-[15px]" />
+            <BlueDot
+              id={`output-dot-${data.id}`}
+              classname="w-[15px] h-[15px]"
+            />
           </div>
         </div>
       </div>
@@ -233,70 +266,70 @@ function Card({
           </div>
         </div>
       )}
-        <svg
-          width="100%"
-          height="100%"
-          className={`absolute top-0 left-0 transition-all z-[1] ${
-            data.id !== "1" ? "hidden" : "block"
-          }`}
-        >
-          <line
-            id={`connector-input-box-${data.id}`}
-            stroke="#0066FF4F"
-            strokeWidth="5"
-            fill="none"
-            strokeLinecap="round"
-            strokeDasharray="100"
-            strokeDashoffset="100"
-            style={{
-              animation: "draw-line 1s linear forwards",
-              animationDelay: "0.5s",
-            }}
-          />
-        </svg>
+      <svg
+        width="100%"
+        height="100%"
+        className={`absolute top-0 left-0 transition-all z-[1] ${
+          data.id !== "1" ? "hidden" : "block"
+        }`}
+      >
+        <line
+          id={`connector-input-box-${data.id}`}
+          stroke="#0066FF4F"
+          strokeWidth="5"
+          fill="none"
+          strokeLinecap="round"
+          strokeDasharray="100"
+          strokeDashoffset="100"
+          style={{
+            animation: "draw-line 1s linear forwards",
+            animationDelay: "0.5s",
+          }}
+        />
+      </svg>
 
-        <svg
-          width="100%"
-          height="100%"
-          className="absolute transition-all top-0 left-0 z-[1]"
-        >
-          <path
-            id={`connector-${data.id}`}
-            stroke="#0066FF4F"
-            strokeWidth="5"
-            fill="none"
-            strokeLinecap="round"
-            strokeDasharray="2000"
-            strokeDashoffset="2000"
-            style={{
-              animation: "draw-path 4s linear forwards",
-              animationDelay: "0.5s",
-            }}
-          />
-        </svg>
+      <svg
+        width="100%"
+        height="100%"
+        className="absolute transition-all top-0 left-0 z-[1]"
+      >
+        <path
+          id={`connector-${data.id}`}
+          stroke="#0066FF4F"
+          strokeWidth="5"
+          fill="none"
+          strokeLinecap="round"
+          strokeDasharray="2000"
+          strokeDashoffset="2000"
+          style={{
+            animation: "draw-path 3s linear forwards",
+            animationDelay: "0.5s",
+          }}
+        />
+      </svg>
 
-        <svg
-          width="100%"
-          height="100%"
-          className={`absolute top-0 left-0 z-[1] transition-all ${
-            data.nextFunction.value ? "hidden" : "block"
-          }`}
-        >
-          <line
-            id={`connector-output-box-${data.id}`}
-            stroke="#0066FF4F"
-            strokeWidth="5"
-            fill="none"
-            className="transition-all"
-            strokeLinecap="round"
-            strokeDasharray="100"
-            strokeDashoffset="100"
-            style={{
-              animation: "draw-line 1s linear forwards",
-              animationDelay: "0.5s",
-            }}
-          />
-        </svg>
+      <svg
+        width="100%"
+        height="100%"
+        className={`absolute top-0 left-0 z-[1] transition-all ${
+          data.nextFunction.value ? "hidden" : "block"
+        }`}
+      >
+        <line
+          id={`connector-output-box-${data.id}`}
+          stroke="#0066FF4F"
+          strokeWidth="5"
+          fill="none"
+          className="transition-all"
+          strokeLinecap="round"
+          strokeDasharray="100"
+          strokeDashoffset="100"
+          style={{
+            animation: "draw-line 1s linear forwards",
+            animationDelay: "0.5s",
+          }}
+        />
+      </svg>
     </div>
   );
 }
