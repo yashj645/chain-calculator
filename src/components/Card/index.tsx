@@ -126,9 +126,10 @@ function Card({
         const x2 = box2Rect.left;
         const y2 = box2Rect.top + Math.ceil(box2Rect.height / 2);
 
+        const curveStrength = Math.abs(x2 - x1) / 2;
         // Generate a smooth cubic Bezier curve path for the connection
-        const pathData = `M ${x1},${y1} C ${x1 + 100},${y1} ${
-          x2 - 100
+        const pathData = `M ${x1},${y1} C ${x1 + curveStrength},${y1 + curveStrength} ${
+          x2
         },${y2} ${x2},${y2}`;
 
         // Set the "d" attribute of the SVG path to render the curved line
